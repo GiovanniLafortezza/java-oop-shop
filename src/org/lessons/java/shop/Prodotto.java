@@ -69,4 +69,15 @@ public class Prodotto {
         double totalPrice = price + iva;
         return totalPrice;
     }
+
+    @Override
+    public String toString() {
+        return "Prodotto {" +
+                "code = " + code +
+                ", name = '" + name + '\'' +
+                ", description = '" + description + '\'' +
+                ", price = " + price +
+                ", iva = " + iva +
+                '}';
+    }
 }
