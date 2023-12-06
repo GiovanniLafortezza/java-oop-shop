@@ -60,7 +60,7 @@ public class Prodotto {
 
     //METODI
 
-    public void price() {
+    public void getTotalPrice() {
          System.out.println("Il prezzo base del prodotto è di " + price + "$");
          System.out.println("Il prezzo totale compreso di iva è di " + priceWithIva() + "$");
     }
@@ -68,6 +68,10 @@ public class Prodotto {
     private double priceWithIva() {
         double totalPrice = price + iva;
         return totalPrice;
+    }
+
+    public String getFullName() {
+        return code + "-" + name;
     }
 
     @Override

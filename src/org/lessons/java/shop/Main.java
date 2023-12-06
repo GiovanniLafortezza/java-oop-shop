@@ -32,7 +32,11 @@ public class Main {
         for (int i = 0; i < prodotti.length; i++) {
 
             System.out.println(prodotti[i].toString());
+            prodotti[i].getTotalPrice();
+            System.out.println("Prodotto " + (i +1) + " " + prodotti[i].getFullName());
         }
+
+
 
         scanner.close();
     }
