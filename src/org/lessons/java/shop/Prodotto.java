@@ -1,5 +1,7 @@
 package org.lessons.java.shop;
 
+import java.util.Random;
+
 public class Prodotto {
     //ATTRIBUTI
     private int code;
@@ -7,15 +9,28 @@ public class Prodotto {
     private String description;
     private double price;
     private double iva;
-
+    private Categoria categoria;
     //COSTRUTTORI
 
-    public Prodotto(int code, String name, String description, double price, double iva) {
-        this.code = code;
+    public Prodotto(String name, String description, double price, double iva, Categoria categoria) throws Exception{
+        if (name.isBlank()) {
+            throw new Exception("Inserire un nome");
+        }
+        if (description.isBlank()) {
+            throw new Exception("Inserire una descrizione");
+        }
+        if (price < 0) {
+            throw new Exception("Prezzo non valido");
+        }
+        if (iva < 0) {
+            throw new Exception("Iva non valida");
+        }
+        this.code = generateCode();
         this.name = name;
         this.description = description;
         this.price = price;
         this.iva = iva;
+        this.categoria = categoria;
     }
 
 
@@ -57,31 +72,40 @@ public class Prodotto {
         this.iva = iva;
     }
 
+    public Categoria getCategoria() {
+        return categoria;
+    }
 
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
     //METODI
 
-    public void getTotalPrice() {
-         System.out.println("Il prezzo base del prodotto è di " + price + "$");
-         System.out.println("Il prezzo totale compreso di iva è di " + priceWithIva() + "$");
+    private int generateCode() {
+        Random randomCode = new Random();
+        return randomCode.nextInt(0,1001);
     }
 
-    private double priceWithIva() {
-        double totalPrice = price + iva;
-        return totalPrice;
+    public double priceWithIva() {
+            double totalPrice = price + iva;
+            return totalPrice;
     }
 
-    public String getFullName() {
+    public String getFullName() throws Exception{
+        if (name == null) {
+            throw new Exception("Nome non valido");
+        }
         return code + "-" + name;
     }
 
     @Override
     public String toString() {
-        return "Prodotto {" +
-                "code = " + code +
-                ", name = '" + name + '\'' +
-                ", description = '" + description + '\'' +
-                ", price = " + price +
-                ", iva = " + iva +
-                '}';
+        try {
+            return getFullName() + " " + priceWithIva() + "$   Categoria: " + categoria.getName();
+
+        }catch (Exception e) {
+            return "errore";
+        }
+
     }
 }
