@@ -44,7 +44,10 @@ public class Prodotto {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(String name) throws Exception{
+        if (name.isBlank()) {
+            throw new Exception("Inserire un nome");
+        }
         this.name = name;
     }
 
@@ -52,7 +55,10 @@ public class Prodotto {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(String description) throws Exception{
+        if (description.isBlank()) {
+            throw new Exception("Inserire una descrizione");
+        }
         this.description = description;
     }
 
@@ -60,15 +66,22 @@ public class Prodotto {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(double price) throws Exception{
+        if (price < 0) {
+            throw new Exception("Prezzo non valido");
+        }
         this.price = price;
     }
 
     public double getIva() {
+
         return iva;
     }
 
-    public void setIva(double iva) {
+    public void setIva(double iva) throws Exception{
+        if (iva < 0) {
+            throw new Exception("Iva non valida");
+        }
         this.iva = iva;
     }
 
@@ -91,21 +104,14 @@ public class Prodotto {
             return totalPrice;
     }
 
-    public String getFullName() throws Exception{
-        if (name == null) {
-            throw new Exception("Nome non valido");
-        }
+    public String getFullName() {
+
         return code + "-" + name;
     }
 
     @Override
     public String toString() {
-        try {
+
             return getFullName() + " " + priceWithIva() + "$   Categoria: " + categoria.getName();
-
-        }catch (Exception e) {
-            return "errore";
-        }
-
     }
 }
